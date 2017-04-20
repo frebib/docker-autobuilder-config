@@ -1,0 +1,2 @@
+IMAGE_NAME="adamant/nzbget"
+GIT_REPO="https://github.com/Adam-Ant/docker-nzbget.git"

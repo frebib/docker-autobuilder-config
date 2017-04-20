@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+# This script checks for a public build of Plex Media Server
+# It prints the latest version to stdout, and whole release document to stderr
+
+which xmlstarlet &>/dev/null || { echo "$(basename $0): xmlstarlet not found"; exit 10; }
+
+RELEASE_URL="https://plex.tv/downloads/details/1?build=linux-ubuntu-x86_64&channel=16&distro=ubuntu"
+VERSION_KEY="/MediaContainer/Release/@version"
+
+curl -s "$RELEASE_URL" | tee /dev/stderr | xmlstarlet sel -t -v "$VERSION_KEY"

@@ -1,0 +1,3 @@
+IMAGE_NAME="adamant/alpine-plex"
+GIT_REPO="https://github.com/Adam-Ant/alpine-plexmediaserver.git"
+SAVE=true

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -eax
+
+case $1 in
+    stable|testing)
+        build=$1;;
+    *)
+        echo "$(basename $0): Invalid bulld '$1'";
+        exit 1;;
+esac
+
+
+# TODO: Docs
+# It prints the latest version to stdout, and whole release document to stderr
+
+which jq &>/dev/null || { echo "$(basename $0): jq not found"; exit 10; }
+
+RELEASE_URL="http://nzbget.net/info/nzbget-version-linux.json"
+
+curl -s "$RELEASE_URL" | sed -e '/^$/d' -e '1s/^.*=\s//' \
+    | tee /dev/stderr | jq -r ".[\"$build-version\"]"

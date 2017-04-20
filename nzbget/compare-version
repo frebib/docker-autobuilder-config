@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+# If anything goes wrong, assume the latest release is newer
+trap 'exit 0' ERR
+
+latestVer=${1//.}
+lastBuild=${3//.}
+
+if [ "$5" = "testing" ]; then
+    # Trim everything to the r (xx.x-testing-rxxxx)
+    latestVer=${latestVer##*r}
+    lastBuild=${lastBuild##*r}
+fi
+
+# Check if the remote version is newer than the last build
+# Below will return true if newest release is actually newer & update should commence
+[ "$latestVer" -gt "$lastBuild" ] && exit 0 || exit 255
