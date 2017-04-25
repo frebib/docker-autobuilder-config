@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -eax
 
 case $1 in
     stable|testing)
